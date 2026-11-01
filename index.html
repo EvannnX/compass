@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Compass — Every AI, in its place</title>
+  <meta name="description" content="Compass keeps track of which AI you use for what, carries project context between them, and tells you when a model changes.">
+  <meta name="theme-color" content="#fbfbfd">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#top" aria-label="Compass home">
+        <svg class="nav__logo" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
+        Compass
+      </a>
+      <nav class="nav__links" aria-label="Sections">
+        <a href="#map">Map</a>
+        <a href="#capture">Capture</a>
+        <a href="#handoff">Handoff</a>
+        <a href="#maintain">Updates</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+      <a class="btn btn--sm" href="#join">Join the study</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="hero__glow" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="container hero__inner">
+        <p class="eyebrow reveal">Compass · Cross-AI relationship map</p>
+        <h1 class="display reveal" style="--d:1">Every AI,<br>in its place.</h1>
+        <p class="lede reveal" style="--d:2">Compass remembers which AI you trust for what, carries your project from one to the next, and tells you when your map goes stale.</p>
+        <div class="hero__ctas reveal" style="--d:3">
+          <a class="btn" href="#join">Join the field study</a>
+          <a class="link-arrow" href="#story">See how it works</a>
+        </div>
+
+        <div class="dial reveal" style="--d:4" id="dial" aria-hidden="true">
+          <div class="dial__ticks"></div>
+          <div class="dial__ring"></div>
+          <div class="dial__node" data-node="claude" data-p="claude" style="--a:-90deg"><i class="dot"></i>Claude</div>
+          <div class="dial__node" data-node="chatgpt" data-p="chatgpt" style="--a:-18deg"><i class="dot"></i>ChatGPT</div>
+          <div class="dial__node" data-node="gemini" data-p="gemini" style="--a:54deg"><i class="dot"></i>Gemini</div>
+          <div class="dial__node" data-node="doubao" data-p="doubao" style="--a:126deg"><i class="dot"></i>Doubao</div>
+          <div class="dial__node" data-node="deepseek" data-p="deepseek" style="--a:198deg"><i class="dot"></i>DeepSeek</div>
+          <div class="dial__needle"></div>
+          <div class="dial__hub"></div>
+        </div>
+        <p class="dial__readout reveal" style="--d:5" aria-live="polite">
+          <span id="dialTask">Plan structure</span><span class="dial__arrow">→</span><strong id="dialAI">Claude</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- Problem story -->
+    <section class="scene scene--story dark" id="story" data-scene="story">
+      <div class="scene__sticky">
+        <div class="container">
+          <p class="eyebrow">The problem</p>
+          <p class="story__text" data-words>You plan with Claude. You draft with ChatGPT. You check your Chinese with DeepSeek. But every switch drops the reasons behind your decisions. Every correction has to be made twice. And when a model quietly changes, nobody tells you.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="headline reveal">Three things go wrong.<br><span class="muted">Compass fixes all three.</span></h2>
+        <div class="cards3">
+          <article class="card reveal" style="--d:1">
+            <span class="card__num">01</span>
+            <h3>Context gets lost.</h3>
+            <p>The executing AI drifts from the plan because the <em>why</em> never made the trip.</p>
+          </article>
+          <article class="card reveal" style="--d:2">
+            <span class="card__num">02</span>
+            <h3>Preferences repeat.</h3>
+            <p>“No bullet points” in ChatGPT has to be said again in Claude. And again.</p>
+          </article>
+          <article class="card reveal" style="--d:3">
+            <span class="card__num">03</span>
+            <h3>Your map goes stale.</h3>
+            <p>Vendors update models silently. What was best last month may not be today.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Relationship map -->
+    <section class="scene scene--map" id="map" data-scene="map">
+      <div class="scene__sticky">
+        <div class="container map">
+          <div class="map__copy">
+            <p class="eyebrow">Relationship map</p>
+            <h2 class="headline">Who you trust,<br>for what.</h2>
+            <ol class="steps" id="mapSteps">
+              <li class="is-active">Answer seven quick questions. Your first map is ready in under five minutes.</li>
+              <li>Every entry keeps a reason, a confidence, and the day you last checked it.</li>
+              <li>When a model changes, the entries that depend on it ask to be rechecked.</li>
+            </ol>
+          </div>
+          <div class="map__board">
+            <div class="grid" id="mapGrid" aria-label="Example relationship map"></div>
+            <div class="map__notes">
+              <div class="note" id="mapDetail">
+                <div class="note__row"><span class="note__title">Thesis · plan → Claude</span><span class="pill pill--ok">high</span></div>
+                <p class="note__body">“Best big-picture judgement.” Verified Oct 30 · from onboarding</p>
+              </div>
+              <div class="note note--warn" id="mapAlert">
+                <div class="note__row"><span class="note__title">Claude was updated</span><span class="pill pill--warn">needs check</span></div>
+                <p class="note__body">3 map entries may be affected. Compass will ask the next time you use them.</p>
+              </div>
+            </div>
+            <div class="legend" aria-hidden="true">
+              <span><i class="legend__filled"></i>Assigned</span>
+              <span><i class="legend__outline"></i>Alternative</span>
+              <span><i class="legend__warn"></i>Needs check</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repair capture -->
+    <section class="section section--tint" id="capture">
+      <div class="container split">
+        <div class="split__copy">
+          <p class="eyebrow reveal">Repair-triggered capture</p>
+          <h2 class="headline reveal" style="--d:1">Correct it once.<br>Never again.</h2>
+          <p class="body-lg reveal" style="--d:2">When you push back on an AI, Compass notices and offers to remember it. One click saves it for every AI you use. Ignore it and it quietly steps aside.</p>
+          <ul class="ticks reveal" style="--d:3">
+            <li>Never blocks your typing or covers the input box</li>
+            <li>At most two suggestions per session</li>
+            <li>Every memory shows where it came from</li>
+          </ul>
+        </div>
+
+        <div class="window reveal" style="--d:2" id="captureDemo" data-state="idle" aria-hidden="true">
+          <div class="window__bar"><span class="window__dots"><i></i><i></i><i></i></span><span class="window__title">chatgpt.com</span></div>
+          <div class="chat">
+            <div class="bubble bubble--ai">
+              Here’s the summary of Chapter 3:
+              <ul><li>Two field sites</li><li>Comparative frame</li><li>Three emerging themes</li></ul>
+            </div>
+            <div class="bubble bubble--user" data-sent>No bullet points. Write in paragraphs.</div>
+          </div>
+          <div class="capture-card" data-card>
+            <div class="capture-card__title">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>
+              Save this?
+            </div>
+            <p class="capture-card__text">“Write in paragraphs, no bullet points.”</p>
+            <div class="capture-card__actions">
+              <span class="chip chip--primary" data-accept>Save · Global</span>
+              <span class="chip">This project only</span>
+              <span class="chip">Edit</span>
+              <span class="chip chip--ghost">×</span>
+            </div>
+          </div>
+          <div class="toast" data-toast>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            Saved to <strong>Me</strong> · from ChatGPT, just now
+          </div>
+          <div class="composer">
+            <div class="composer__input"><span data-typed></span><i class="caret"></i></div>
+            <span class="composer__send">↑</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two-layer memory + insert -->
+    <section class="section" id="memory">
+      <div class="container">
+        <p class="eyebrow center reveal">Two-layer memory</p>
+        <h2 class="headline center reveal" style="--d:1">About you. About the work.<br><span class="muted">Sorted automatically.</span></h2>
+
+        <div class="layers reveal" style="--d:2">
+          <div class="layer">
+            <p class="layer__label">Global · about you</p>
+            <span class="mem" style="--i:0;--fx:140px">Paragraphs, not bullet points</span>
+            <span class="mem" style="--i:2;--fx:180px">Keep answers under 300 words</span>
+            <span class="mem" style="--i:4;--fx:120px">Reply in Chinese when I write Chinese</span>
+          </div>
+          <div class="layer layer--project">
+            <p class="layer__label">Project · Thesis</p>
+            <span class="mem mem--decision" style="--i:1;--fx:-160px"><b>Decision</b>Chapter 3 compares two field sites</span>
+            <span class="mem mem--constraint" style="--i:3;--fx:-120px"><b>Constraint</b>Do not change the chapter order</span>
+            <span class="mem mem--open" style="--i:5;--fx:-180px"><b>Open</b>Which theory anchors the discussion</span>
+          </div>
+        </div>
+
+        <div class="insert reveal">
+          <div class="insert__copy">
+            <h3 class="title">One click. Fully briefed.</h3>
+            <p class="body">Pick a project in the sidebar and Compass fills the input box on any supported AI. You review it. You press send.</p>
+          </div>
+          <pre class="insert__block"><span class="ln" style="--i:0">[Context from Compass — project: Thesis]</span>
+<span class="ln" style="--i:1"><b>About me:</b></span>
+<span class="ln" style="--i:2">- Write in paragraphs, no bullet points.</span>
+<span class="ln" style="--i:3"><b>Decisions so far:</b></span>
+<span class="ln" style="--i:4">- Chapter 3 compares two field sites.</span>
+<span class="ln" style="--i:5">  Why: the advisor asked for a comparative frame.</span>
+<span class="ln" style="--i:6"><b>Constraints:</b></span>
+<span class="ln" style="--i:7">- Do not change the chapter order.</span>
+<span class="ln" style="--i:8"><b>Open items:</b></span>
+<span class="ln" style="--i:9">- Which theory to anchor the discussion on.</span>
+<span class="ln" style="--i:10">[End of context]</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Handoff -->
+    <section class="scene scene--handoff section--tint" id="handoff" data-scene="handoff">
+      <div class="scene__sticky">
+        <div class="container handoff">
+          <div class="handoff__head">
+            <p class="eyebrow">Handoff &amp; return</p>
+            <h2 class="headline">Plan here. Execute there.<br><span class="muted">Nothing gets lost.</span></h2>
+          </div>
+
+          <div class="stage" id="handoffStage">
+            <div class="pane pane--from" data-p="claude">
+              <div class="pane__bar"><i class="dot"></i>Claude</div>
+              <div class="pane__body">
+                <p class="pane__heading">Chapter 3 · plan</p>
+                <i class="line" style="--w:92%"></i><i class="line" style="--w:78%"></i><i class="line" style="--w:85%"></i><i class="line" style="--w:60%"></i>
+                <p class="pane__verdict" data-verdict>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+                  Compared with plan: 2 deviations, 1 acceptable.
+                </p>
+              </div>
+              <span class="pane__btn" data-handoff-btn>Hand off to ChatGPT →</span>
+            </div>
+
+            <div class="package" aria-hidden="true">
+              <p class="package__title">Handoff package</p>
+              <div class="package__group"><p>Decisions</p><span>Chapter 3 compares two field sites.</span></div>
+              <div class="package__group"><p>Why</p><span>The advisor asked for a comparative frame.</span></div>
+              <div class="package__group"><p>Do not change</p><span>The chapter order.</span></div>
+              <div class="package__group"><p>Open for you</p><span>Which theory to anchor on.</span></div>
+            </div>
+
+            <div class="pane pane--to" data-p="chatgpt">
+              <div class="pane__bar"><i class="dot"></i>ChatGPT</div>
+              <pre class="pane__input">[Handoff from Claude via Compass — project: Thesis]
+Your job: execute the plan below.
+Decisions:
+- Chapter 3 compares two field sites.
+Why these decisions:
+- The advisor asked for a comparative frame.
+Do not change:
+- The chapter order.
+Open for you to decide:
+- Which theory to anchor on.
+[End of handoff]</pre>
+              <span class="pane__btn" data-return-btn>← Bring back to Claude</span>
+            </div>
+
+            <span class="return-pill" data-return-pill>Result</span>
+          </div>
+
+          <ol class="hsteps" id="handoffSteps">
+            <li class="is-active">Plan in Claude.</li>
+            <li>Preview what travels.</li>
+            <li>Open ChatGPT, already filled in.</li>
+            <li>Bring the result back for review.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Maintenance -->
+    <section class="section dark" id="maintain">
+      <div class="container">
+        <p class="eyebrow center reveal">Map maintenance</p>
+        <h2 class="headline center reveal" style="--d:1">Models change.<br><span class="muted">Your map keeps up.</span></h2>
+
+        <div class="bento">
+          <article class="tile tile--wide reveal" id="driftTile">
+            <div class="tile__head">
+              <p class="tile__kicker">Silent drift</p>
+              <h3 class="tile__title">You’ve corrected Claude much more than usual. It may have changed.</h3>
+            </div>
+            <svg class="drift" viewBox="0 0 600 220" aria-label="Daily repair rate for Claude, spiking above twice the baseline in the last three days">
+              <rect class="drift__spike" id="driftSpike" y="12" height="196" rx="10"/>
+              <line class="drift__threshold" id="driftThreshold" x1="24" x2="576"/>
+              <line class="drift__baseline" id="driftBaseline" x1="24" x2="576"/>
+              <path class="drift__area" id="driftArea"/>
+              <path class="drift__line" id="driftLine"/>
+              <g id="driftDots"></g>
+            </svg>
+            <div class="drift__legend"><span><i class="k-base"></i>14-day baseline</span><span><i class="k-thr"></i>2× threshold</span></div>
+          </article>
+
+          <article class="tile reveal" style="--d:1">
+            <p class="tile__kicker">Official updates</p>
+            <h3 class="tile__title">Release notes, read for you.</h3>
+            <ul class="feed">
+              <li><i class="dot" data-p="claude"></i><div><b>Claude Opus 5.5</b><span>Release notes · 6 h ago</span></div></li>
+              <li><i class="dot" data-p="gemini"></i><div><b>Gemini</b><span>Model label changed · 2 d ago</span></div></li>
+              <li><i class="dot" data-p="chatgpt"></i><div><b>ChatGPT</b><span>No change this week</span></div></li>
+            </ul>
+          </article>
+
+          <article class="tile reveal" style="--d:2">
+            <p class="tile__kicker">Weekly review</p>
+            <h3 class="tile__title">Five suggestions, at most.</h3>
+            <div class="suggest">
+              <p>You often finish <b>Thesis · draft</b> in DeepSeek. Make it the assigned AI?</p>
+              <div class="suggest__actions"><span class="chip chip--primary">Accept</span><span class="chip chip--dark">Dismiss</span></div>
+            </div>
+            <div class="suggest">
+              <p><b>Images → Doubao</b> hasn’t been checked in 30 days. Still true?</p>
+              <div class="suggest__actions"><span class="chip chip--primary">Still true</span><span class="chip chip--dark">Edit</span></div>
+            </div>
+          </article>
+
+          <article class="tile tile--wide tile--banner reveal">
+            <div class="banner">
+              <svg class="banner__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
+              <div class="banner__body">
+                <p class="banner__title">Claude was updated (Claude Opus 5.5). 3 map entries may be affected.</p>
+                <p class="banner__list">Thesis · plan → Claude (high) · Research → alt. Claude (medium) · Code → alt. Claude (medium)</p>
+              </div>
+              <div class="banner__actions">
+                <span class="chip chip--primary">Remind me when I use them</span>
+                <span class="chip chip--dark">Still accurate</span>
+                <span class="chip chip--dark">Review now</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Numbers -->
+    <section class="section">
+      <div class="container">
+        <h2 class="headline center reveal">Designed to stay out of the way.</h2>
+        <div class="stats">
+          <div class="stat reveal" style="--d:1"><span class="stat__num">5<small>min</small></span><p>to a usable first map</p></div>
+          <div class="stat reveal" style="--d:2"><span class="stat__num">1<small>click</small></span><p>to save a preference</p></div>
+          <div class="stat reveal" style="--d:3"><span class="stat__num">2<small>clicks</small></span><p>to switch AI with full context</p></div>
+          <div class="stat reveal" style="--d:4"><span class="stat__num">≤2</span><p>interruptions per session</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="section section--tint" id="privacy">
+      <div class="container">
+        <p class="eyebrow center reveal">Privacy</p>
+        <h2 class="headline center reveal" style="--d:1">Local-first.<br><span class="muted">Your words stay on your device.</span></h2>
+        <div class="privacy">
+          <div class="pcard reveal" style="--d:1">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>
+            <h3>Stored in your browser</h3>
+            <p>Every memory and map entry lives in local storage. No user database on a server.</p>
+          </div>
+          <div class="pcard reveal" style="--d:2">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M4 12l5-5M4 12l5 5"/><path d="M20 6v12"/></svg>
+            <h3>Bounded snippets only</h3>
+            <p>Only short, capped excerpts go to the language service, which keeps nothing.</p>
+          </div>
+          <div class="pcard reveal" style="--d:3">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+            <h3>Counts, never content</h3>
+            <p>Research logs record events and numbers. Never a single line of your conversations.</p>
+          </div>
+          <div class="pcard reveal" style="--d:4">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>
+            <h3>Yours to take or erase</h3>
+            <p>Pause capture, export everything as JSON, or delete it all from Settings.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Study / Join -->
+    <section class="section" id="join">
+      <div class="container">
+        <p class="eyebrow center reveal">Field study</p>
+        <h2 class="headline center reveal" style="--d:1">Help us map how people<br>really work with AI.</h2>
+        <p class="body-lg center narrow reveal" style="--d:2">A 5–6 week study on desktop Chrome for anyone who uses two or more AI assistants. Participants are assigned one of three modes.</p>
+
+        <div class="modes">
+          <div class="mode reveal" style="--d:1">
+            <h3>Manual</h3>
+            <ul>
+              <li class="y">Project memory &amp; insert</li>
+              <li class="y">Manual add</li>
+              <li class="p">Repair detection logged only</li>
+              <li class="n">Capture cards</li>
+              <li class="n">Map, handoff &amp; alerts</li>
+            </ul>
+          </div>
+          <div class="mode reveal" style="--d:2">
+            <h3>Auto</h3>
+            <ul>
+              <li class="y">Project memory &amp; insert</li>
+              <li class="y">Manual add</li>
+              <li class="y">Repair detection</li>
+              <li class="p">Memories saved silently</li>
+              <li class="n">Map, handoff &amp; alerts</li>
+            </ul>
+          </div>
+          <div class="mode mode--full reveal" style="--d:3">
+            <h3>Full</h3>
+            <ul>
+              <li class="y">Project memory &amp; insert</li>
+              <li class="y">Manual add</li>
+              <li class="y">Repair detection</li>
+              <li class="y">Capture cards</li>
+              <li class="y">Map, handoff &amp; alerts</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="join reveal">
+          <!-- TODO: replace with the study's sign-up form or contact address -->
+          <a class="btn btn--lg" href="mailto:study@example.com?subject=Compass%20field%20study">Register interest</a>
+          <p class="fine">Week one is observation only. All features turn on after the baseline week.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>Compass is a research prototype for an HCI systems study. Working name.</p>
+      <p>© 2026 Compass Research</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
