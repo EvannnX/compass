@@ -1,0 +1,98 @@
+/* Shared by the landing page and the app. Warm parchment: cream canvas, ink text, 4px corners, no glows. */
+:root {
+  --bg: #f7f7f4;
+  --surface: #f2f1ed;
+  --tint: #e6e5e0;
+  --fg: #26251e;
+  --muted: #6b6a64;
+  --faint: #a1a19f;
+  --line: rgba(38, 37, 30, 0.1);
+  --line-strong: #cdcdc9;
+  --accent: #26251e;
+  --accent-hover: #3d3c33;
+  --accent-soft: #e6e5e0;
+  --ember: #f54e00;
+  --warn: #c08532;
+  --warn-ink: #7a4a10;
+  --warn-soft: #f6eedf;
+  --warn-line: #e2c99a;
+  --ok: #34785c;
+  --danger: #cf2d56;
+
+  --c-claude: #d97757;
+  --c-chatgpt: #1f8a65;
+  --c-gemini: #6f5bf5;
+  --c-deepseek: #2f6bff;
+  --c-kimi: #4a4f5c;
+  --c-qwen: #a14fd1;
+  --c-grok: #8a887f;
+  --c-perplexity: #20808d;
+  --c-copilot: #c99a1e;
+  --c-mistral: #e0661b;
+  --c-chatglm: #3d55c4;
+  --c-yuanbao: #52a86e;
+
+  --radius: 4px;
+  --radius-sm: 4px;
+  --radius-modal: 8px;
+  --shadow: 0 0 0 1px var(--line);
+  --shadow-lg: rgba(0, 0, 0, 0.14) 0 28px 70px 0, rgba(0, 0, 0, 0.1) 0 14px 32px 0, 0 0 0 1px var(--line);
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --serif: "EB Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+[data-p="claude"] { --c: var(--c-claude); }
+[data-p="chatgpt"] { --c: var(--c-chatgpt); }
+[data-p="gemini"] { --c: var(--c-gemini); }
+[data-p="deepseek"] { --c: var(--c-deepseek); }
+[data-p="kimi"] { --c: var(--c-kimi); }
+[data-p="qwen"] { --c: var(--c-qwen); }
+[data-p="grok"] { --c: var(--c-grok); }
+[data-p="perplexity"] { --c: var(--c-perplexity); }
+[data-p="copilot"] { --c: var(--c-copilot); }
+[data-p="mistral"] { --c: var(--c-mistral); }
+[data-p="chatglm"] { --c: var(--c-chatglm); }
+[data-p="yuanbao"] { --c: var(--c-yuanbao); }
+[data-p^="custom-"] { --c: var(--muted); }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font); font-feature-settings: "tnum"; background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+svg { display: block; }
+img { display: block; max-width: 100%; height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+::selection { background: #8bc4f8; }
+
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--faint)); flex: none; }
+.muted { color: var(--muted); }
+.link { color: var(--ember); }
+.link:hover { text-decoration: underline; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 38px; padding: 0 16px; border-radius: 4px;
+  background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 500; white-space: nowrap;
+  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn:hover { background: var(--accent-hover); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn--sm { height: 32px; padding: 0 12px; font-size: 13px; }
+.btn--lg { height: 44px; padding: 0 20px; font-size: 15px; }
+.btn--quiet { background: var(--tint); color: var(--fg); }
+.btn--quiet:hover { background: #dcdbd5; }
+.btn--danger { background: var(--danger); }
+.btn--danger:hover { background: #b0244a; }
+.btn--danger-quiet { background: none; color: var(--danger); padding: 0; height: auto; font-weight: 400; }
+.btn--danger-quiet:hover { background: none; text-decoration: underline; }
+
+.pill { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+.pill--warn { background: var(--warn-soft); color: var(--warn-ink); box-shadow: inset 0 0 0 1px var(--warn-line); }
+.pill--ok { background: #e3eee8; color: var(--ok); box-shadow: inset 0 0 0 1px #b9d3c6; }
+.warn-text { color: var(--warn-ink); }
+
+.ptag { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }

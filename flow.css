@@ -1,0 +1,82 @@
+/* Landing page: the animated "how a task moves" diagram. */
+.flow { margin-top: 48px; padding: 32px; border-radius: var(--radius-modal); background: var(--bg); box-shadow: var(--shadow-lg); }
+.flow__top { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 32px; align-items: start; }
+.flow__tabs { display: inline-flex; gap: 2px; padding: 4px; border-radius: 6px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.flow__tab { height: 40px; padding: 0 16px; border-radius: var(--radius); font-size: 15px; color: var(--muted); white-space: nowrap; }
+.flow__tab:hover { color: var(--fg); }
+.flow__tab[aria-selected="true"] { background: var(--bg); color: var(--fg); font-weight: 500; box-shadow: 0 0 0 1px var(--line), 0 1px 2px rgba(0, 0, 0, 0.06); }
+.flow__desc { font-size: 16px; line-height: 1.55; color: var(--muted); max-width: 620px; }
+
+/* Stage: source on the left, Compass in the middle, destinations on the right */
+.flow__stage { position: relative; display: grid; grid-template-columns: 200px 210px minmax(0, 1fr); gap: 0 72px; align-items: center; margin-top: 40px; }
+.flow__wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.wire { fill: none; stroke: var(--line-strong); stroke-width: 1.5; transition: stroke 300ms, opacity 300ms; }
+.wire--in { stroke-dasharray: 3 6; stroke-linecap: round; stroke: var(--faint); }
+.wire.is-live { stroke: var(--fg); stroke-dasharray: 3 6; stroke-linecap: round; animation: flow-march 700ms linear infinite; }
+.wire.is-quiet { opacity: 0.45; }
+@keyframes flow-march { to { stroke-dashoffset: -18; } }
+
+.fnode { position: relative; z-index: 1; display: grid; justify-items: center; gap: 6px; padding: 24px 16px; text-align: center; border-radius: 8px; background: var(--bg); box-shadow: 0 0 0 1px var(--line-strong); }
+.fnode__mark { width: 36px; height: 36px; display: grid; place-items: center; }
+.fnode__mark svg { width: 34px; height: 34px; }
+.fnode__dot { width: 22px; height: 22px; border-radius: 6px; background: var(--c, var(--fg)); }
+.fnode__title { font-size: 18px; font-weight: 500; }
+.fnode__sub { font-size: 14px; color: var(--muted); }
+.fnode--hub { padding: 28px 16px 20px; box-shadow: 0 0 0 1.5px var(--fg), 0 0 0 7px var(--surface); }
+.fnode--hub svg { fill: none; stroke: var(--fg); stroke-width: 1.6; }
+.fnode--hub svg path { fill: var(--fg); stroke: none; transform-origin: 12px 12px; transition: transform 600ms ease; }
+.flow__pill { margin-top: 6px; min-height: 30px; display: inline-flex; align-items: center; padding: 0 14px; border-radius: 999px; font-size: 14px; background: var(--surface); color: var(--muted); transition: background 200ms, color 200ms; }
+.flow__pill.is-busy { background: var(--fg); color: var(--bg); }
+
+.flow__rows { position: relative; z-index: 1; display: grid; gap: 10px; }
+.frow { display: grid; grid-template-columns: 14px 18px auto minmax(0, 1fr); align-items: center; gap: 12px; min-height: 64px; padding: 0 20px; border-radius: 8px; background: var(--bg); box-shadow: 0 0 0 1px var(--line-strong); transition: box-shadow 250ms; }
+.frow__radio { width: 12px; height: 12px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--faint); transition: box-shadow 250ms, background 250ms; }
+.frow__mark { width: 14px; height: 14px; border-radius: 3px; background: var(--c, var(--faint)); }
+.frow__name { font-size: 17px; font-weight: 500; white-space: nowrap; }
+.frow__name span { margin-left: 6px; font-weight: 400; color: var(--faint); }
+.frow__note { justify-self: end; text-align: right; font-size: 15px; color: var(--muted); }
+.frow__note b { margin-right: 8px; font-family: var(--mono); font-size: 12px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em; color: var(--faint); }
+.frow.is-on { box-shadow: 0 0 0 1.5px var(--fg); }
+.frow.is-on .frow__radio { background: var(--fg); box-shadow: inset 0 0 0 1.5px var(--fg), inset 0 0 0 3px var(--bg); }
+.frow.is-on .frow__note { color: var(--fg); }
+.frow.is-done .frow__radio { background: var(--ok); box-shadow: none; }
+
+/* The kinds of memory reuse the app's colours */
+.frow[data-k="decision"] { --c: var(--fg); }
+.frow[data-k="constraint"] { --c: #c9516f; }
+.frow[data-k="open_item"] { --c: var(--warn); }
+.frow[data-k="fact"] { --c: var(--ok); }
+.frow[data-k="material"] { --c: #7a68c9; }
+
+.flow__foot { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line-strong); }
+.flow__caption { font-size: 17px; min-height: 26px; transition: opacity 200ms; }
+.flow__caption.is-fading { opacity: 0; }
+.flow__stats { display: flex; gap: 40px; }
+.flow__stats div { display: grid; gap: 2px; }
+.flow__stats dd { order: -1; font-size: 32px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.flow__stats dt { font-size: 14px; color: var(--muted); }
+
+@media (max-width: 1100px) {
+  .flow__top { grid-template-columns: 1fr; gap: 16px; }
+  .flow__stage { grid-template-columns: 170px 180px minmax(0, 1fr); gap: 0 48px; }
+}
+
+/* Narrow screens: one column, joined by a dotted line instead of curves */
+@media (max-width: 760px) {
+  .flow { padding: 20px 16px; margin-top: 32px; }
+  .flow__tabs { display: flex; width: 100%; overflow-x: auto; }
+  .flow__tab { flex: 1 0 auto; padding: 0 12px; font-size: 14px; }
+  .flow__stage { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; }
+  .flow__wires { display: none; }
+  .fnode { padding: 16px; }
+  .fnode + .fnode::before, .flow__rows::before { content: ""; position: absolute; left: 50%; top: -28px; height: 28px; border-left: 2px dotted var(--faint); }
+  .frow { grid-template-columns: 12px 14px minmax(0, 1fr); padding: 12px 14px; gap: 4px 10px; }
+  .frow__note { grid-column: 3; justify-self: start; text-align: left; font-size: 14px; }
+  .flow__stats { gap: 24px; }
+  .flow__stats dd { font-size: 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wire.is-live { animation: none; stroke-dasharray: none; }
+  .fnode--hub svg path, .frow, .frow__radio, .flow__caption { transition: none; }
+}
